@@ -165,6 +165,18 @@ a:focus, button:focus, summary:focus {
   outline-offset: 2px;
 }
 
+/* Favicon for brand recognition */
+/* Add this to the <head> of index.html: <link rel="icon" href="https://www.exness.com/media/brand/favicon.ico" type="image/x-icon"> */
+
+/* Example for image styling (if images are added): */
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+  margin: 1rem auto;
+}
+
 /* Responsive Design */
 @media (max-width: 600px) {
   nav, main {
