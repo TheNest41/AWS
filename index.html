@@ -124,6 +124,37 @@
       <p style="font-size:0.95rem; color:#555;">For full details, see the <a href="https://get.exness-affiliates.help/hc/en-us/articles/360011626820-Exness-Advertising-Guidelines-for-Introducing-Partners-Digital-Affiliates" target="_blank" rel="noopener nofollow">Exness Advertising Guidelines</a>.</p>
     </section>
   </main>
+  <div id="exit-popup" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.65);z-index:9999;align-items:center;justify-content:center;">
+    <div style="background:#fff;padding:2rem 1.5rem 1.2rem 1.5rem;border-radius:10px;max-width:350px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,0.18);position:relative;">
+      <button id="close-exit-popup" aria-label="Close popup" style="position:absolute;top:0.5rem;right:0.7rem;background:none;border:none;font-size:1.5rem;cursor:pointer;color:#888;">&times;</button>
+      <h3 style="margin-top:0;">Wait! Don’t Miss Out</h3>
+      <p style="font-size:1.05rem;">Start trading with Exness and enjoy ultra-low spreads.<br><strong>Click below to get started now!</strong></p>
+      <a href="https://www.exnesspromo.com/en/trade-with-low-spread/?partner_id=yzgsijm75o" class="cta-btn" style="margin-top:1rem;display:inline-block;">Trade Now</a>
+      <p style="font-size:0.9rem;color:#b00;margin-top:1.2rem;">Trading CFDs is risky. Please trade responsibly.</p>
+    </div>
+  </div>
+  <script>
+  (function() {
+    let popupShown = false;
+    function showExitPopup(e) {
+      if (popupShown) return;
+      popupShown = true;
+      document.getElementById('exit-popup').style.display = 'flex';
+    }
+    function closeExitPopup() {
+      document.getElementById('exit-popup').style.display = 'none';
+    }
+    document.getElementById('close-exit-popup').onclick = closeExitPopup;
+    // Show popup when mouse leaves top of viewport (desktop)
+    document.addEventListener('mouseout', function(e) {
+      if (e.clientY < 40) showExitPopup();
+    });
+    // Show popup on mobile after 30s
+    if (/Mobi|Android/i.test(navigator.userAgent)) {
+      setTimeout(showExitPopup, 30000);
+    }
+  })();
+  </script>
   <footer>
     <p>&copy; 2025 Exness Affiliate. All rights reserved. | <a href="https://www.exnesspromo.com/en/trade-with-low-spread/?partner_id=yzgsijm75o" rel="nofollow noopener" target="_blank">Affiliate Link</a></p>
   </footer>
