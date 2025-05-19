@@ -1,0 +1,183 @@
+/* style.css - Modern, responsive, accessible, and fast-loading styles for Exness Affiliate Landing Page */
+
+:root {
+  --primary: #f5b700;
+  --secondary: #222;
+  --accent: #fff;
+  --cta: #007bff;
+  --cta-hover: #0056b3;
+  --font-main: 'Segoe UI', Arial, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-main);
+  background: var(--accent);
+  color: var(--secondary);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+header {
+  background: var(--primary);
+  padding: 0.5rem 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+nav {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+}
+.logo {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: var(--secondary);
+  letter-spacing: 1px;
+}
+.nav-cta {
+  background: var(--cta);
+  color: var(--accent);
+  padding: 0.5rem 1.2rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+.nav-cta:hover, .cta-btn:hover {
+  background: var(--cta-hover);
+}
+
+main {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+.hero {
+  text-align: center;
+  padding: 2.5rem 1rem 2rem 1rem;
+  background: linear-gradient(90deg, #fff 60%, #f5b70011 100%);
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+}
+.hero h1 {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+}
+.cta-btn {
+  display: inline-block;
+  margin-top: 1.5rem;
+  background: var(--cta);
+  color: var(--accent);
+  padding: 0.9rem 2.2rem;
+  border-radius: 6px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  transition: background 0.2s, transform 0.1s;
+}
+.cta-btn:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.features {
+  margin: 2.5rem 0 2rem 0;
+}
+.features h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+.features ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.2rem;
+  list-style: none;
+  padding: 0;
+}
+.features li {
+  background: #f8f8f8;
+  border-radius: 8px;
+  padding: 1.1rem 1rem;
+  font-weight: 500;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+}
+
+.testimonials {
+  margin: 2.5rem 0 2rem 0;
+  text-align: center;
+}
+.testimonials h2 {
+  margin-bottom: 1rem;
+}
+.testimonials blockquote {
+  font-style: italic;
+  background: #f5b70022;
+  border-left: 4px solid var(--primary);
+  margin: 1rem auto;
+  padding: 1rem 1.5rem;
+  border-radius: 6px;
+  max-width: 600px;
+}
+
+.faq {
+  margin: 2.5rem 0 2rem 0;
+}
+.faq h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+.faq details {
+  background: #f8f8f8;
+  border-radius: 6px;
+  margin-bottom: 0.7rem;
+  padding: 0.8rem 1rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.02);
+}
+.faq summary {
+  font-weight: 600;
+  cursor: pointer;
+}
+
+footer {
+  text-align: center;
+  padding: 1.2rem 0 0.7rem 0;
+  background: #f5b70011;
+  color: #444;
+  font-size: 1rem;
+  margin-top: 2rem;
+}
+footer a {
+  color: var(--cta);
+  text-decoration: underline;
+}
+
+/* Accessibility: High contrast for focus */
+a:focus, button:focus, summary:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  nav, main {
+    padding: 0 0.5rem;
+  }
+  .hero h1 {
+    font-size: 1.4rem;
+  }
+  .cta-btn {
+    font-size: 1rem;
+    padding: 0.7rem 1.2rem;
+  }
+  .features ul {
+    grid-template-columns: 1fr;
+  }
+}

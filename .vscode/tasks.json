@@ -1,0 +1,12 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Deploy to GitHub Pages",
+      "type": "shell",
+      "command": "echo 'To deploy, push to your GitHub repository and enable GitHub Pages in repository settings.'",
+      "group": "build",
+      "problemMatcher": []
+    }
+  ]
+}
