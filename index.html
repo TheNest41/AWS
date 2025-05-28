@@ -157,6 +157,24 @@
       </div>
       <div style="font-size:0.92rem;color:#888;margin-top:0.7rem;">Your visit is counted anonymously by country using your IP address. No personal data is stored.</div>
     </section>
+    <section class="visitor-tracker" id="affiliate-click-tracker">
+      <h3>Affiliate Link Click Tracker</h3>
+      <div class="vt-stats">
+        <div><span id="ct-total">0</span><br>All-Time Clicks</div>
+        <div><span id="ct-today">0</span><br>Today's Clicks</div>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="vt-country-table">
+          <thead>
+            <tr><th>Country</th><th>All-Time</th><th>Today</th></tr>
+          </thead>
+          <tbody id="ct-country-list">
+            <tr><td colspan="3">Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="font-size:0.92rem;color:#888;margin-top:0.7rem;">Counts affiliate link clicks by country. No personal data is stored.</div>
+    </section>
   </main>
   <div id="exit-popup" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.65);z-index:9999;align-items:center;justify-content:center;">
     <div style="background:#fff;padding:2rem 1.5rem 1.2rem 1.5rem;border-radius:10px;max-width:350px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,0.18);position:relative;">
@@ -206,7 +224,7 @@
       }
       // Helper: Get country by IP (ipinfo.io, fallback to 'Unknown')
       function getCountry(cb) {
-        fetch('https://ipinfo.io/json?token=6e6e6e6e6e6e6e')
+        fetch('https://ipinfo.io/json?token=6e6e6e6e6e6e6')
           .then(r => r.json())
           .then(d => cb(d.country || 'Unknown'))
           .catch(() => cb('Unknown'));
@@ -243,6 +261,68 @@
         }
         document.getElementById('vt-country-list').innerHTML = rows.length ? rows.join('') : '<tr><td colspan="3">No data</td></tr>';
       });
+    })();
+    </script>
+    <script>
+    // Affiliate Link Click Tracker
+    (function() {
+      // Helper: Get/Set click tracker data
+      function getClickTracker() {
+        return JSON.parse(localStorage.getItem('affiliateClickTracker') || '{}');
+      }
+      function setClickTracker(data) {
+        localStorage.setItem('affiliateClickTracker', JSON.stringify(data));
+      }
+      // Count clicks
+      function trackClick(country) {
+        let tracker = getClickTracker();
+        let today = (new Date()).toISOString().slice(0,10);
+        tracker.all = tracker.all || 0;
+        tracker.today = tracker.today || {};
+        tracker.countries = tracker.countries || {};
+        tracker.countriesToday = tracker.countriesToday || {};
+        // All-time
+        tracker.all++;
+        tracker.countries[country] = (tracker.countries[country]||0)+1;
+        // Today
+        if(tracker.today.date !== today) {
+          tracker.today = {date: today, count: 1};
+          tracker.countriesToday = {};
+        } else {
+          tracker.today.count++;
+        }
+        tracker.countriesToday[country] = (tracker.countriesToday[country]||0)+1;
+        setClickTracker(tracker);
+        updateClickUI(tracker);
+      }
+      // Update UI
+      function updateClickUI(tracker) {
+        document.getElementById('ct-total').textContent = tracker.all || 0;
+        document.getElementById('ct-today').textContent = (tracker.today && tracker.today.count) || 0;
+        let rows = [];
+        let allCountries = Object.keys(tracker.countries||{}).sort();
+        for(let c of allCountries) {
+          rows.push(`<tr><td>${c}</td><td>${tracker.countries[c]}</td><td>${tracker.countriesToday[c]||0}</td></tr>`);
+        }
+        document.getElementById('ct-country-list').innerHTML = rows.length ? rows.join('') : '<tr><td colspan="3">No data</td></tr>';
+      }
+      // Attach click event to all affiliate links
+      function setupClicks(country) {
+        var links = document.querySelectorAll('a[href*="exnesspromo.com"]');
+        for(var i=0;i<links.length;i++){
+          links[i].addEventListener('click', function(){ trackClick(country); });
+        }
+      }
+      // On load, get country and update UI
+      fetch('https://ipinfo.io/json?token=6e6e6e6e6e6e6e')
+        .then(r => r.json()).then(d => {
+          let country = d.country || 'Unknown';
+          setupClicks(country);
+          updateClickUI(getClickTracker());
+        }).catch(() => {
+          setupClicks('Unknown');
+          updateClickUI(getClickTracker());
+        });
     })();
     </script>
   <footer>
