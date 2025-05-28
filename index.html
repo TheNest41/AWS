@@ -65,16 +65,7 @@
     </section>
     <section class="features">
       <h2>Why Choose Exness for Forex, CFD, and Copy Trading?</h2>
-      <!-- Google AdSense Responsive Ad Unit -->
-      <ins class="adsbygoogle"
-           style="display:block;text-align:center;margin-bottom:1.5rem;"
-           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-           data-ad-slot="1234567890"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-      <!-- End AdSense Ad Unit -->
-      <ul>
+      <ul style="margin-top:0.5rem;">
         <li>Ultra-low spreads from 0.0 pips for maximum profit potential</li>
         <li>Lightning-fast order execution and minimal slippage</li>
         <li>Regulated and trusted globally for secure trading</li>
@@ -148,6 +139,24 @@
       </details>
       <p style="font-size:0.95rem; color:#555;">For full details, see the <a href="https://get.exness-affiliates.help/hc/en-us/articles/360011626820-Exness-Advertising-Guidelines-for-Introducing-Partners-Digital-Affiliates" target="_blank" rel="noopener nofollow">Exness Advertising Guidelines</a>.</p>
     </section>
+    <section class="visitor-tracker" id="visitor-tracker">
+      <h3>Visitor Tracker</h3>
+      <div class="vt-stats">
+        <div><span id="vt-total">0</span><br>All-Time Visitors</div>
+        <div><span id="vt-today">0</span><br>Today's Visitors</div>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="vt-country-table">
+          <thead>
+            <tr><th>Country</th><th>All-Time</th><th>Today</th></tr>
+          </thead>
+          <tbody id="vt-country-list">
+            <tr><td colspan="3">Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="font-size:0.92rem;color:#888;margin-top:0.7rem;">Your visit is counted anonymously by country using your IP address. No personal data is stored.</div>
+    </section>
   </main>
   <div id="exit-popup" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.65);z-index:9999;align-items:center;justify-content:center;">
     <div style="background:#fff;padding:2rem 1.5rem 1.2rem 1.5rem;border-radius:10px;max-width:350px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,0.18);position:relative;">
@@ -180,6 +189,62 @@
     }
   })();
   </script>
+  <script>
+    // Visitor Tracker (localStorage + IP + country via ipinfo.io)
+    (function() {
+      // Helper: Get today string
+      function todayStr() {
+        const d = new Date();
+        return d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();
+      }
+      // Helper: Get/Set tracker data
+      function getTracker() {
+        return JSON.parse(localStorage.getItem('visitorTracker') || '{}');
+      }
+      function setTracker(data) {
+        localStorage.setItem('visitorTracker', JSON.stringify(data));
+      }
+      // Helper: Get country by IP (ipinfo.io, fallback to 'Unknown')
+      function getCountry(cb) {
+        fetch('https://ipinfo.io/json?token=6e6e6e6e6e6e6e')
+          .then(r => r.json())
+          .then(d => cb(d.country || 'Unknown'))
+          .catch(() => cb('Unknown'));
+      }
+      // Main logic
+      getCountry(function(country) {
+        let tracker = getTracker();
+        let today = todayStr();
+        // All-time
+        tracker.all = tracker.all || 0;
+        tracker.today = tracker.today || {};
+        tracker.countries = tracker.countries || {};
+        tracker.countriesToday = tracker.countriesToday || {};
+        // All-time
+        tracker.all++;
+        tracker.countries[country] = (tracker.countries[country]||0)+1;
+        // Today
+        if(tracker.today.date !== today) {
+          tracker.today = {date: today, count: 1};
+          tracker.countriesToday = {};
+        } else {
+          tracker.today.count++;
+        }
+        tracker.countriesToday[country] = (tracker.countriesToday[country]||0)+1;
+        setTracker(tracker);
+        // Update UI
+        document.getElementById('vt-total').textContent = tracker.all;
+        document.getElementById('vt-today').textContent = tracker.today.count;
+        // Country table
+        let rows = [];
+        let allCountries = Object.keys(tracker.countries).sort();
+        for(let c of allCountries) {
+          rows.push(`<tr><td>${c}</td><td>${tracker.countries[c]}</td><td>${tracker.countriesToday[c]||0}</td></tr>`);
+        }
+        document.getElementById('vt-country-list').innerHTML = rows.length ? rows.join('') : '<tr><td colspan="3">No data</td></tr>';
+      });
+    })();
+    </script>
   <footer>
     <p>&copy; 2025 Exness Affiliate. All rights reserved. | <a href="https://www.exnesspromo.com/en/trade-with-low-spread/?partner_id=yzgsijm75o" rel="nofollow noopener" target="_blank">Affiliate Link</a></p>
   </footer>

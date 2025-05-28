@@ -177,7 +177,56 @@ img {
   margin: 1rem auto;
 }
 
-/* Responsive Design */
+/* Visitor Tracker Styles */
+.visitor-tracker {
+  background: #fffbe7;
+  border: 1px solid #f5b700;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  margin: 2.5rem auto 2rem auto;
+  padding: 1.2rem 1rem 1.2rem 1rem;
+  max-width: 600px;
+  font-size: 1.05rem;
+  color: #222;
+}
+.visitor-tracker h3 {
+  margin-top: 0;
+  color: #b88a00;
+  font-size: 1.2rem;
+}
+.visitor-tracker .vt-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  margin-bottom: 1rem;
+}
+.visitor-tracker .vt-stats > div {
+  flex: 1 1 120px;
+  background: #fff7c2;
+  border-radius: 6px;
+  padding: 0.7rem 0.5rem;
+  text-align: center;
+  font-weight: 600;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+}
+.visitor-tracker .vt-country-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+}
+.visitor-tracker .vt-country-table th,
+.visitor-tracker .vt-country-table td {
+  border: 1px solid #f5b70044;
+  padding: 0.4rem 0.7rem;
+  text-align: left;
+}
+.visitor-tracker .vt-country-table th {
+  background: #fff3b0;
+  color: #222;
+}
+.visitor-tracker .vt-country-table td {
+  background: #fff;
+}
 @media (max-width: 600px) {
   nav, main {
     padding: 0 0.5rem;
@@ -191,5 +240,9 @@ img {
   }
   .features ul {
     grid-template-columns: 1fr;
+  }
+  .visitor-tracker .vt-stats {
+    flex-direction: column;
+    gap: 0.5rem;
   }
 }
