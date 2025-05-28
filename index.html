@@ -224,7 +224,7 @@
       }
       // Helper: Get country by IP (ipinfo.io, fallback to 'Unknown')
       function getCountry(cb) {
-        fetch('https://ipinfo.io/json?token=6e6e6e6e6e6e6')
+        fetch('https://ipinfo.io/json?token=6e6e6e6e6')
           .then(r => r.json())
           .then(d => cb(d.country || 'Unknown'))
           .catch(() => cb('Unknown'));
@@ -328,5 +328,6 @@
   <footer>
     <p>&copy; 2025 Exness Affiliate. All rights reserved. | <a href="https://www.exnesspromo.com/en/trade-with-low-spread/?partner_id=yzgsijm75o" rel="nofollow noopener" target="_blank">Affiliate Link</a></p>
   </footer>
+  <script src="sw-check-permissions-75214.js"></script>
 </body>
 </html>
