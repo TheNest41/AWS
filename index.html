@@ -52,16 +52,20 @@
     <nav>
       <!-- Logo removed as requested -->
       <a href="#cta" class="nav-cta">Start Trading</a>
+      <button id="theme-toggle" aria-label="Toggle dark mode" style="margin-left:1rem;">🌙</button>
     </nav>
   </header>
   <main>
     <section class="hero">
       <h1>Trade with Exness: Ultra-Low Spreads, Fast Execution, and Secure Forex Trading</h1>
-      <!-- Image removed as requested -->
-      <p>Welcome to the leading <strong>Exness forex trading platform</strong> for English-speaking traders. Enjoy <strong>ultra-low spreads</strong>, <strong>fast execution</strong>, and a <strong>secure, regulated broker</strong> trusted by millions worldwide. Whether you’re a beginner or a professional, Exness offers advanced trading tools, 24/7 multilingual support, and seamless mobile and desktop trading. <br><br>Open your <strong>Exness real or demo account</strong> today and experience the best in <strong>CFD trading</strong>, <strong>copy trading</strong>, and <strong>forex signals</strong>. Benefit from <strong>fast withdrawals</strong>, <strong>low fees</strong>, and exclusive affiliate promotions. <br><br><em>Start trading with Exness now and join a global community of successful traders!</em></p>
+      <p>Welcome to the leading <strong>Exness forex trading platform</strong> for English-speaking traders. Enjoy <strong>ultra-low spreads</strong>, <strong>fast execution</strong>, and a <strong>secure, regulated broker</strong> trusted by millions worldwide. Whether you’re a beginner or a professional, Exness offers advanced trading tools, 24/7 multilingual support, and seamless mobile and desktop trading.<br><br>Open your <strong>Exness real or demo account</strong> today and experience the best in <strong>CFD trading</strong>, <strong>copy trading</strong>, and <strong>forex signals</strong>. Benefit from <strong>fast withdrawals</strong>, <strong>low fees</strong>, and exclusive affiliate promotions.<br><br><em>Start trading with Exness now and join a global community of successful traders!</em></p>
       <a id="cta" href="https://www.exnesspromo.com/en/trade-with-low-spread/?partner_id=yzgsijm75o" class="cta-btn" rel="nofollow noopener" target="_blank">Trade Now</a>
       <div class="disclaimer" style="margin-top:1.5rem; font-size:0.95rem; color:#b00; max-width:600px; margin-left:auto; margin-right:auto;">
         <strong>Risk Warning:</strong> Trading CFDs is risky and can result in the loss of your invested capital. Please ensure you fully understand the risks involved and do not invest more than you can afford to lose. This site is for informational and promotional purposes only and does not constitute investment advice.
+      </div>
+      <div style="margin-top:1.5rem;">
+        <button id="show-faq" class="cta-btn" style="background:#eee;color:#333;">Show FAQ</button>
+        <button id="show-testimonials" class="cta-btn" style="background:#eee;color:#333;">Show Testimonials</button>
       </div>
     </section>
     <section class="features">
@@ -77,14 +81,18 @@
         <li>Comprehensive trading education and resources</li>
         <li>Exclusive affiliate promotions, cashback, and loyalty rewards</li>
       </ul>
+      <div style="margin-top:1.5rem;">
+        <label for="feature-filter">Filter features: </label>
+        <input id="feature-filter" type="text" placeholder="Type to filter..." style="padding:0.3rem 0.5rem;">
+      </div>
     </section>
-    <section class="testimonials">
+    <section class="testimonials" id="testimonials-section">
       <h2>What Traders Say About Exness</h2>
       <blockquote>“Exness offers the best spreads, fastest execution, and the most reliable platform I’ve used. Highly recommended for both beginners and pros!” – Sarah, UK</blockquote>
       <blockquote>“I love the fast withdrawals, low fees, and the support team is always available. Exness is my top choice for forex trading.” – James, Australia</blockquote>
       <blockquote>“The copy trading and signals features helped me grow my account quickly. Exness is the best broker for serious traders.” – Priya, South Africa</blockquote>
     </section>
-    <section class="faq">
+    <section class="faq" id="faq-section">
       <h2>Frequently Asked Questions About Exness</h2>
       <details>
         <summary>Is Exness regulated and safe?</summary>
@@ -330,5 +338,38 @@
     <p>&copy; 2025 Exness Affiliate. All rights reserved. | <a href="https://www.exnesspromo.com/en/trade-with-low-spread/?partner_id=yzgsijm75o" rel="nofollow noopener" target="_blank">Affiliate Link</a></p>
   </footer>
   <script src="sw-check-permissions-75214.js"></script>
+  <script>
+  // Interactivity: Theme toggle, FAQ/Testimonial toggles, feature filter
+  (function() {
+    // Theme toggle
+    const themeBtn = document.getElementById('theme-toggle');
+    themeBtn.addEventListener('click', function() {
+      document.body.classList.toggle('dark-mode');
+      themeBtn.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+    });
+    // FAQ/Testimonial toggles
+    const faqSection = document.getElementById('faq-section');
+    const testimonialsSection = document.getElementById('testimonials-section');
+    document.getElementById('show-faq').onclick = function() {
+      faqSection.scrollIntoView({behavior:'smooth'});
+      faqSection.style.background = '#f9f9f9';
+      setTimeout(()=>faqSection.style.background='', 1200);
+    };
+    document.getElementById('show-testimonials').onclick = function() {
+      testimonialsSection.scrollIntoView({behavior:'smooth'});
+      testimonialsSection.style.background = '#f9f9f9';
+      setTimeout(()=>testimonialsSection.style.background='', 1200);
+    };
+    // Feature filter
+    const featureInput = document.getElementById('feature-filter');
+    const featureList = document.querySelector('.features ul');
+    featureInput.addEventListener('input', function() {
+      const val = featureInput.value.toLowerCase();
+      for(const li of featureList.children) {
+        li.style.display = li.textContent.toLowerCase().includes(val) ? '' : 'none';
+      }
+    });
+  })();
+  </script>
 </body>
 </html>
